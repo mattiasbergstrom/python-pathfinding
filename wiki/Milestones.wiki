@@ -1,0 +1,37 @@
+#summary Milestones
+#labels Phase-Requirements
+=1.0=
+== Rationale ==
+The 1.0 release is intended to be a basic, usable, implementation of 2D pathfinding. Most basic 2D pathfinding operations must be covered. 3D is out of scope, because the nature of 3D pathfinding is unknown to the developer. As time goes on, the milestone targets may change.
+
+
+== Milestone Targets ==
+Implement the following pathfinding algorithms in both Python and C/Cython/Pyrex:
+  * A`*`
+  * D`*`
+  * Bidirectional Search
+  * Breadth-First Search
+
+Implement the following metrics in both Python and C/Cython/Pyrex:
+  * Manhattan Metric
+  * Euclidean Metric
+  * Euclidean Squared Metric
+  * non-metric (0)
+
+Implement the following types of nodes:
+  * Tesselating Rectangles
+  * Tesselating Triangles
+  * Tesselating Hexagons
+  * Tesselating Octagons
+  * Grouped Rectangles
+  * Grouped Triangles
+  * Grouped Hexagons
+  * Grouped Octagons
+
+Implement dummy APIs for the following existing libraries:
+  * Dijkstar
+  * PGU's A`*`
+
+Implement map-loading for the following file formats (more specifics once non-rectangular pathfinding is realized):
+  * plaintext
+  * image
