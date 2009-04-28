@@ -2,10 +2,12 @@
 #labels Phase-Requirements
 =1.0=
 == Rationale ==
-The 1.0 release is intended to be a basic, usable, implementation of 2D pathfinding. Most basic 2D pathfinding operations must be covered. 3D is out of scope, because the nature of 3D pathfinding is unknown to the developer. As time goes on, the milestone targets may change.
+The 1.0 release is intended to be a basic, usable, implementation of 2D pathfinding. Most basic 2D pathfinding operations must be covered.
 
 
 == Milestone Targets ==
+Items with (?) are more likely to be removed later.
+
 Implement the following pathfinding algorithms in both Python and C/Cython/Pyrex:
   * A`*`
   * D`*`
@@ -19,14 +21,12 @@ Implement the following metrics in both Python and C/Cython/Pyrex:
   * non-metric (0)
 
 Implement the following types of nodes:
-  * Tesselating Rectangles
-  * Tesselating Triangles
-  * Tesselating Hexagons
-  * Tesselating Octagons
-  * Grouped Rectangles
-  * Grouped Triangles
-  * Grouped Hexagons
-  * Grouped Octagons
+  * Tessellating Rectangles
+  * Tessellating Triangles
+  * Tessellating Hexagons
+  * Region Quadtree of Parallelograms
+  * Region Quadtree of Triangles (?)
+  * Region Quadtree of Hexagons (?)
 
 Implement dummy APIs for the following existing libraries:
   * Dijkstar
