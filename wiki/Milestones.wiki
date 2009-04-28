@@ -14,17 +14,18 @@ Implement the following pathfinding algorithms in both Python and C/Cython/Pyrex
   * Bidirectional Search
   * Breadth-First Search
 
-Implement the following metrics in both Python and C/Cython/Pyrex:
+Implement the following heuristic functions and metrics in both Python and C/Cython/Pyrex:
   * Manhattan Metric
   * Euclidean Metric
-  * Euclidean Squared Metric
-  * non-metric (0)
+  * Discrete Metric
+  * Euclidean Squared heuristic
+  * 0 heuristic
 
 Implement the following types of nodes:
   * Tessellating Rectangles
   * Tessellating Triangles
   * Tessellating Hexagons
-  * Region Quadtree of Parallelograms
+  * Region Quadtree of Rectangles
   * Region Quadtree of Triangles (?)
   * Region Quadtree of Hexagons (?)
 
