@@ -40,7 +40,7 @@ def test_map_failure(mapname):
             f = open(mapname)
             start, end = load_map.file_to_tile(f)
             walkable = start.walkable
-            self.assertRaises(ValueError, start.find_path, end)
+            self.assertEquals(start.find_path(end), None)
         finally:
             f.close()
     test_astar_failure.__name__ += '_' + os.path.basename(mapname)
