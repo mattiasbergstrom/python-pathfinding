@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import os
-from pathfinding import load_map, nodes
+from pathfinding import load_map, nodes, algorithms
 from StringIO import StringIO
 
 class TestPathfinding(unittest.TestCase):
@@ -11,14 +11,14 @@ class TestPathfinding(unittest.TestCase):
     
     def test_astar_noop(self):
         node = nodes.RectNode((0, 0))
-        self.assertEquals(len(list(node.find_path(node))), 0)
+        self.assertEquals(len(list(algorithms.astar(node, node))), 0)
     
     def test_astar_path(self):
         """Test that paths are constructed exclusive of start, inclusive of end
         """
         start = nodes.RectNode((0, 0))
         end = nodes.RectNode((5, 0))
-        self.assertEquals(list(start.find_path(end)),
+        self.assertEquals(list(algorithms.astar(start, end)),
             [nodes.RectNode((i, 0)) for i in xrange(1, 6)])
 
 def test_map_success(mapname):
@@ -27,7 +27,7 @@ def test_map_success(mapname):
             f = open(mapname)
             start, end = load_map.file_to_tile(f)
             walkable = start.walkable
-            path = start.find_path(end)
+            path = algorithms.astar(start, end)
             self.verify_path(walkable, path)
         finally:
             f.close()
@@ -40,7 +40,7 @@ def test_map_failure(mapname):
             f = open(mapname)
             start, end = load_map.file_to_tile(f)
             walkable = start.walkable
-            self.assertEquals(start.find_path(end), None)
+            self.assertEquals(algorithms.astar(start, end), None)
         finally:
             f.close()
     test_astar_failure.__name__ += '_' + os.path.basename(mapname)
