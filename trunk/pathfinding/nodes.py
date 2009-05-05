@@ -36,13 +36,14 @@ class RectNode(object):
     def __eq__(self, o):
         return self.pos == o.pos
     
-    def _get_pos(self):
-        return self.x, self.y
+    def _get_x(self):
+        return self.pos[0]
     
-    def _set_pos(self, pos):
-        self.x, self.y = pos
+    def _get_y(self):
+        return self.pos[1]
     
-    pos = property(fget=_get_pos, fset=_set_pos)
+    x = property(fget=_get_x)
+    y = property(fget=_get_y)
     
     def get_neighbors(self):
         """Get all the traversable neighbor nodes
