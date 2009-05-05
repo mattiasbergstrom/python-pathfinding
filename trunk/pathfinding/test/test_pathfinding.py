@@ -23,20 +23,26 @@ class TestPathfinding(unittest.TestCase):
 
 def test_map_success(mapname):
     def test_astar_success(self):
-        with open(mapname) as f:
+        try:
+            f = open(mapname)
             start, end = load_map.file_to_tile(f)
             walkable = start.walkable
             path = start.find_path(end)
             self.verify_path(walkable, path)
+        finally:
+            f.close()
     test_astar_success.__name__ += '_' + os.path.basename(mapname)
     return test_astar_success
 
 def test_map_failure(mapname):
     def test_astar_failure(self):
-        with open(mapname) as f:
+        try:
+            f = open(mapname)
             start, end = load_map.file_to_tile(f)
             walkable = start.walkable
             self.assertRaises(ValueError, start.find_path, end)
+        finally:
+            f.close()
     test_astar_failure.__name__ += '_' + os.path.basename(mapname)
     return test_astar_failure
 

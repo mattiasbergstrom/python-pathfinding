@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
 import unittest
-import itertools
-import metrics
+from pathfinding import metrics
+try:
+    from itertools import product, permutations
+except ImportError:
+    from pathfinding import _compat 
+    product, permutations = _compat.product, _compat.permutations
+
 
 coord_range = range(-2, 3)
-coords = list(itertools.product(coord_range, repeat=2))
+coords = list(product(coord_range, repeat=2))
 coord_pairs = []
-coord_triplets = list(itertools.permutations(coords, 3))
+coord_triplets = list(permutations(coords, 3))
 equal_coords = []
 differing_coords = []
 
-for a, b in itertools.permutations(coords, 2):
+for a, b in permutations(coords, 2):
     coord_pairs.append((a, b))
     if a == b:
         equal_coords.append((a, b))
@@ -28,18 +33,18 @@ class TestAbstractPremetric(unittest.TestCase):
         self.coord_triplets = coord_triplets
     
     def test_dimension(self):
-        """Ensures that vectors from different vector spaces cannot be
+        """Ensure that vectors from different vector spaces cannot be
         compared"""
         self.assertRaises(ValueError, self.metric, (0, 1), (0, 1, 2))
     
     def test_nonnegativity(self):
-        """Tests non-negativity
+        """Test non-negativity
             non-negativity: d(x, y) >=0 for all x, y"""
         for a, b in self.coord_pairs:
             self.assertTrue(self.metric(a, b) >= 0)
     
     def test_identity_of_indiscernables(self):
-        """Tests identity of indiscernables only to the extent required
+        """Test identity of indiscernables only to the extent required
         as a premetric
             identity of indiscernables: d(x, y) == 0 iff x==y
             only relevant portion: if x == y, d(x, y) == 0
@@ -51,13 +56,13 @@ class TestAbstractSemimetric(TestAbstractPremetric):
     __test__ = False
     
     def test_identity_of_indiscernables(self):
-        """Tests identity of indiscernables
+        """Test identity of indiscernables
             identity of indiscernables: d(x, y) == 0 iff x==y"""
         for a, b in self.differing_coords:
             self.assertNotEqual(self.metric(a, b), 0)
     
     def test_symmetry(self):
-        """Tests symmetry
+        """Test symmetry
             symmetry: d(x, y) == d(y, x) for all x, y"""
         for a, b in self.coord_pairs:
             self.assertEqual(self.metric(a, b), self.metric(b, a))
@@ -66,9 +71,8 @@ class TestAbstractMetric(TestAbstractSemimetric):
     __test__ = False
     
     def test_subadditivity(self):
-        """Tests subadditivity, also known as the triangle inequality
+        """Test subadditivity, also known as the triangle inequality
             d(x, y) <= d(x, z) + d(z, y)"""
-        # FIXME: no equality, test against an epsilon
         for a, b, c in self.coord_triplets:
             lhs = self.metric(a, c)
             p1, p2 = self.metric(a, b), self.metric(b, c)

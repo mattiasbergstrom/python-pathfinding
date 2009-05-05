@@ -18,11 +18,11 @@ def astar(start_node, target_node):
     f_score = {start_node: h_score[start_node] + g_score[start_node]}
     
     came_from = {}
-    start_pair = [f_score[start_node], start_node]
+    start_pair = [f_score[start_node], h_score[start_node], start_node]
     heapq.heappush(open, start_pair)
     open_d = {start_node: start_pair}
     while open:
-        f, node = heapq.heappop(open)
+        f, h, node = heapq.heappop(open)
         del open_d[node]
         if node == target_node:
             return reconstruct_path(came_from, target_node) #fix <-- what did that mean?
@@ -35,9 +35,9 @@ def astar(start_node, target_node):
             if neighbor not in open_d:
                 came_from[neighbor] = node
                 g_score[neighbor] = tentative_g_score
-                h_score[neighbor] = neighbor.heuristic(target_node)
+                h = h_score[neighbor] = neighbor.heuristic(target_node)
                 f = f_score[neighbor] = g_score[neighbor] + h_score[neighbor]
-                d = open_d[neighbor] = [f, neighbor]
+                d = open_d[neighbor] = [f, h, neighbor]
                 heapq.heappush(open, d)
             elif tentative_g_score < g_score[neighbor]:
                 came_from[neighbor] = node
