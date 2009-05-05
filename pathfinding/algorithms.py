@@ -13,46 +13,45 @@ def astar(start_node, target_node):
     open_set = set()
     open = []
     
-    h_score = {start_node: start_node.heuristic(target_node)}
-    g_score = {start_node: 0}
-    f_score = {start_node: h_score[start_node] + g_score[start_node]}
+    h = start_node._h = start_node.heuristic(target_node)
+    g = start_node._g = 0
+    f = start_node._h # + start_node.g
     
-    came_from = {}
-    start_pair = [f_score[start_node], h_score[start_node], start_node]
-    heapq.heappush(open, start_pair)
-    open_d = {start_node: start_pair}
+    start_triplet = [f, h, start_node]
+    heapq.heappush(open, start_triplet)
+    open_d = {start_node: start_triplet}
     while open:
         f, h, node = heapq.heappop(open)
         del open_d[node]
         if node == target_node:
-            return reconstruct_path(came_from, target_node) #fix <-- what did that mean?
+            return reconstruct_path(node)
         closed.add(node)
         for neighbor in node.get_neighbors():
             if neighbor in closed:
                 continue
          
-            tentative_g_score = g_score[node] + node.move_cost(neighbor)
+            tentative_g = node._g + node.move_cost(neighbor)
             if neighbor not in open_d:
-                came_from[neighbor] = node
-                g_score[neighbor] = tentative_g_score
-                h = h_score[neighbor] = neighbor.heuristic(target_node)
-                f = f_score[neighbor] = g_score[neighbor] + h_score[neighbor]
-                d = open_d[neighbor] = [f, h, neighbor]
+                neighbor._came_from = node
+                neighbor._g = tentative_g
+                h = neighbor._h = neighbor.heuristic(target_node)
+                d = open_d[neighbor] = [tentative_g + h, h, neighbor]
                 heapq.heappush(open, d)
-            elif tentative_g_score < g_score[neighbor]:
-                came_from[neighbor] = node
-                g_score[neighbor] = tentative_g_score
-                f = f_score[neighbor] = g_score[neighbor] + h_score[neighbor]
-                open_d[neighbor][0] = f
-                heapq.heapify(open)
+            else:
+                neighbor = open_d[neighbor][2] # preserve identity, f/g/h
+                if tentative_g < neighbor._g:
+                    neighbor._came_from = node
+                    neighbor._g = tentative_g
+                    open_d[neighbor][0] = tentative_g + neighbor._h
+                    heapq.heapify(open)
                 
     
     raise ValueError("No path exists.")
 
-def reconstruct_path(came_from, target_node):
+def reconstruct_path(target_node):
     path = []
     node = target_node
-    while node in came_from:
+    while hasattr(node, '_came_from'):
         path.append(node)
-        node = came_from[node]
+        node = node._came_from
     return reversed(path)
