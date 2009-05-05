@@ -4,6 +4,7 @@ Custom map-loading routines will probably be desired, but load_map
 can be useful for testing new heuristics, pathfinding algorithms, etc."""
 import nodes
 import algorithms
+import metrics
 
 START = '0'
 BLANK = ' '
@@ -20,7 +21,7 @@ def read_tiles(f):
 
 def file_to_tile(f, 
         start=START, blank=BLANK, wall=WALL, target=TARGET, 
-        algorithm=algorithms.astar):
+        algorithm=algorithms.astar, heuristic=metrics.manhattan):
     """Take an input file `f` and return RectNodes start_node, target_node
     (if a target is not found, start_node, None will be returned instead """
     walkable = {}
@@ -39,13 +40,13 @@ def file_to_tile(f,
     if start_pos is None:
         raise ValueError("No starting position in map")
     start_node = nodes.RectNode(start_pos, 
-        walkable=walkable, algorithm=algorithm)
+        walkable=walkable, algorithm=algorithm, heuristic=heuristic)
     if target_pos is None:
         # target position is optional
         target_node = None
     else:
         target_node = nodes.RectNode(target_pos,
-            walkable=walkable, algorithm=algorithm)
+            walkable=walkable, algorithm=algorithm, heuristic=heuristic)
     return start_node, target_node
     
     

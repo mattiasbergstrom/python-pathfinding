@@ -19,13 +19,16 @@ a metric is the most strictly defined such function, adding a fourth condition:
     3.: d(a, b)=d(b, a) for all a, b (symmetry)
     4.: d(a, c)<=d(a, b)+d(b, c) for all a, b, c (triangle inequality)"""
 import math
-import functools
+try:
+    from functools import wraps
+except ImportError:
+    from _compat import wraps
 
 __all__ = ['chebyshev', 'manhattan', 'euclidean_squared', 'euclidean', 
     'discrete', 'zero']
 
 def on_vector_space(f):
-    @functools.wraps(f)
+    @wraps(f)
     def g(pos1, pos2):
         if len(pos1) != len(pos2):
             raise ValueError("The arguments are not in the same vector space "

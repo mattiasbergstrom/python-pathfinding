@@ -5,11 +5,21 @@ import algorithms
 import metrics
 import nodes
 import load_map
+_exp = []
+try:
+    import dummy_pgu
+except ImportError:
+    pass
+else:
+    _exp.append('dummy_pgu')
+import dummy_dijkstar
+
 try:
     from pathfinding import test
 except ImportError:
-    _exp = []
+    pass
 else:
-    _exp = ['test']
+    _exp.append('test')
 
-__all__ = ['algorithms', 'metrics', 'nodes', 'load_map'] + _exp
+__all__ = ['algorithms', 'metrics', 'nodes', 'load_map', 'dummy_pgu', 
+    'dummy_dijkstar'] + _exp
