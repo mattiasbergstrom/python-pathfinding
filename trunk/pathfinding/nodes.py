@@ -27,8 +27,8 @@ class RectNode(object):
         self._move_cost = move_cost
         self.pos = pos
         self.default_walkable = default_walkable
-        self._alg = algorithm
-        self._h = heuristic
+        self._algorithm = algorithm
+        self._heuristic = heuristic
     
     def __hash__(self):
         return hash(self.pos)
@@ -54,17 +54,17 @@ class RectNode(object):
                 yield self.neighbor_gen(pos, walkable=self.walkable, 
                         default_walkable=self.default_walkable, 
                         neighbor_gen=self.neighbor_gen,
-                        algorithm=self._alg, heuristic=self._h)
+                        algorithm=self._algorithm, heuristic=self._heuristic)
     
     def find_path(self, target):
         """find path to `target` using supplied algorithm"""
-        return self._alg(self, target)
+        return self._algorithm(self, target)
     
     def heuristic(self, node):
         """Use the supplied heuristic to determine distance from `node`
         the heuristic may not always be used, depending on the pathfinding 
         algorithm used"""
-        return self._h(self.pos, node.pos)
+        return self._heuristic(self.pos, node.pos)
     
     def move_cost(self, node):
         """Find the cost for moving between self and `node`
