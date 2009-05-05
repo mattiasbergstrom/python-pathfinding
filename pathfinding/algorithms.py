@@ -46,7 +46,7 @@ def astar(start_node, target_node):
                     heapq.heapify(open)
                 
     
-    raise ValueError("No path exists.")
+    return None # there is no path
 
 def reconstruct_path(target_node):
     path = []
