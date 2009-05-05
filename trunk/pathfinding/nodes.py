@@ -7,8 +7,7 @@ import itertools
 class RectNode(object):
     def __init__(self, pos, 
             move_cost=1, walkable=None, default_walkable=True, 
-            neighbor_gen=None, algorithm=algorithms.astar, 
-            heuristic=metrics.manhattan):
+            neighbor_gen=None, heuristic=metrics.manhattan):
         """Create a RectNode 
         with position `pos` and that generates neighbors by calling 
         `neighbor_gen` with similar arguments
@@ -27,7 +26,6 @@ class RectNode(object):
         self._move_cost = move_cost
         self.pos = pos
         self.default_walkable = default_walkable
-        self._algorithm = algorithm
         self._heuristic = heuristic
     
     def __hash__(self):
@@ -54,11 +52,7 @@ class RectNode(object):
                 yield self.neighbor_gen(pos, walkable=self.walkable, 
                         default_walkable=self.default_walkable, 
                         neighbor_gen=self.neighbor_gen,
-                        algorithm=self._algorithm, heuristic=self._heuristic)
-    
-    def find_path(self, target):
-        """find path to `target` using supplied algorithm"""
-        return self._algorithm(self, target)
+                        heuristic=self._heuristic)
     
     def heuristic(self, node):
         """Use the supplied heuristic to determine distance from `node`

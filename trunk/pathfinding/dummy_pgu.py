@@ -2,6 +2,7 @@
 #dummy_pgu.py
 import nodes
 from collections import defaultdict
+import algorithms
 
 try: 
     from functools import partial
@@ -38,4 +39,5 @@ def astar(start, end, layer, dist):
         heuristic=dist)
     end_node = nodes.RectNode(end, walkable=walkable,
         heuristic=dist)
-    return [node.pos for node in start_node.find_path(end_node)]
+    return [node.pos for node in 
+        algorithms.astar(start_node, end_node)]
