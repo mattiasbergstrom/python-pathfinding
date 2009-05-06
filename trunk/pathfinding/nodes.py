@@ -15,8 +15,7 @@ class RectNode(object):
             the next
         `walkable` is a map from position->walkable for any tile position
             if a position is not in `walkable`, it is assumed 
-            `default_walkable` (default_walkable is True by default)
-        uses `algorithm` for pathfinding"""
+            `default_walkable` (default_walkable is True by default)"""
         if walkable is None:
             walkable = {}
         self.walkable = walkable
