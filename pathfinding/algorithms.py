@@ -5,17 +5,15 @@ import heapq
 __all__ = ['astar']
 
 def astar(start_node, target_node):
-    """The A* pathfinding algorithm
-    """
-    # TODO: tie break f values with h (tuple (f, h, node), not (f, node))
-    # reduces searching in general, am I right?
+    """The A* pathfinding algorithm"""
     closed = set()
     open_set = set()
     open = []
+    del start_node._came_from
     
     h = start_node._h = start_node.heuristic(target_node)
     g = start_node._g = 0
-    f = start_node._h # + start_node.g
+    f = start_node._h # + start_node._g
     
     start_triplet = [f, h, start_node]
     heapq.heappush(open, start_triplet)
