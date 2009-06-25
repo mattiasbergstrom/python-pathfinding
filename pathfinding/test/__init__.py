@@ -3,10 +3,10 @@ import unittest
 import test_load_map
 import test_pathfinding
 import test_metrics
-import test_nodes
+#import test_nodes
 import pathfinding
 
-__all__ = ['test_load_map', 'test_pathfinding', 'test_metrics', 'test_nodes'
+__all__ = ['test_load_map', 'test_pathfinding', 'test_metrics', #'test_nodes',
     'main']
 
 class ConcreteTestLoader(unittest.TestLoader):
@@ -20,7 +20,8 @@ class ConcreteTestLoader(unittest.TestLoader):
 
 test_loader = ConcreteTestLoader()
 test_modules = [test_load_map, test_pathfinding, test_metrics,
-    test_nodes]
+    #test_nodes]
+    ]
 subsuites = [test_loader.loadTestsFromModule(mod) for mod in test_modules]
 suite = unittest.TestSuite()
 suite.addTests(subsuites)

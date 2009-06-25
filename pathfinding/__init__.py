@@ -12,7 +12,6 @@ except ImportError:
     pass
 else:
     _exp.append('dummy_pgu')
-import dummy_dijkstar
 
 try:
     from pathfinding import test

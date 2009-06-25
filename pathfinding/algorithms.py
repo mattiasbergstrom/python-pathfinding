@@ -9,7 +9,9 @@ def astar(start_node, target_node):
     closed = set()
     open_set = set()
     open = []
-    del start_node._came_from
+    # ensure start_node is terminating node in path reconstruction
+    if hasattr(start_node, '_came_from'):
+        del start_node._came_from
     
     h = start_node._h = start_node.heuristic(target_node)
     g = start_node._g = 0
