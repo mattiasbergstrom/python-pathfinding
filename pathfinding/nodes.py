@@ -5,6 +5,9 @@ import metrics
 import itertools
 
 class RectNode(object):
+    __slots__ = ('walkable', 'neighbor_gen', '_move_cost', 'pos', 
+        'default_walkable', '_heuristic',
+        '_came_from', '_h', '_g') # set by algorithms.astar
     def __init__(self, pos, 
             move_cost=1, walkable=None, default_walkable=True, 
             neighbor_gen=None, heuristic=metrics.manhattan):
