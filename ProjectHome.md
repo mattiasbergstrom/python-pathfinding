@@ -1,0 +1,1 @@
+The goal of this project is to form a comprehensive and useful pathfinding library capable of supporting many algorithms, over many metric spaces of different dimensions and nature.
